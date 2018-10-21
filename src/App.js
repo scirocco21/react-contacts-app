@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import * as ContactsAPI from './utils/ContactsAPI'
 
 class ContactList extends React.Component {
   render() {
