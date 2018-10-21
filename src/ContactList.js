@@ -1,4 +1,5 @@
-import React, {Component} from 'react'
+import React from 'react';
+import PropTypes from 'prop-types';
 
 function ContactList(props) {
   const people = props.contacts
@@ -23,5 +24,12 @@ function ContactList(props) {
     </ol>
   )
 }
+
+// use Proptypes to ensure correct datatypes are handed down
+ContactList.propTypes = {
+  contacts: PropTypes.array.isRequired,
+  onDeleteContact: PropTypes.func.isRequired
+}
+
 // just like regular classes, stateless functional components need to be explicitly imported/exported
 export default ContactList
