@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ContactList from './ContactList'
 import * as ContactsAPI from './utils/ContactsAPI'
 
 const contacts = [
@@ -21,17 +22,6 @@ const contacts = [
     "avatarURL": "http://localhost:5001/tyler.jpg"
   }
 ]
-
-class ContactList extends React.Component {
-  render() {
-    const people = this.props.contacts
-    return <ol>
-      {people.map(person => (
-        <li key={person.name}>{person.name}</li>
-      ))}
-    </ol>
-  }
-}
 
 class App extends Component {
   render() {
