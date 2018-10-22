@@ -20,9 +20,12 @@ class ContactList extends Component {
 
   render() {
     const people = this.props.contacts;
+    const { onDeleteContact } = this.props
+    const {query} = this.state
+
     let showingPeople;
-    if (this.state.query) {
-      const match = new RegExp(escapeRegExp(this.state.query), 'i')
+    if (query) {
+      const match = new RegExp(escapeRegExp(query), 'i')
       showingPeople = people.filter((contact) => match.test(contact.name))
     } else {
       showingPeople = people;
@@ -36,7 +39,7 @@ class ContactList extends Component {
           {/* search form is a controlled component because the value displayed is a direct reflection of the contact list's internal state, where query is stored */}
           <input
             className="search-contacts" type="text"
-            placeholder="Search Contacts" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)}
+            placeholder="Search Contacts" value={query} onChange={(event) => this.updateQuery(event.target.value)}
           />
         </div>
         <ol className="contact-list">
@@ -51,7 +54,7 @@ class ContactList extends Component {
               <p>{person.name}</p>
               <p>{person.email}</p>
             </div>
-            <button className='contact-remove' onClick={() => this.props.onDeleteContact(person)}>
+            <button className='contact-remove' onClick={() => onDeleteContact(person)}>
               Remove
             </button>
           </li>
