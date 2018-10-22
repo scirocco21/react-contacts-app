@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Route} from 'react-router-dom'
 import ContactList from './ContactList';
+import CreateContact from './CreateContact'
 import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
@@ -29,14 +30,33 @@ class App extends Component {
     ContactsAPI.remove(contact)
   }
 
+  // first call create action on server side, then when async action resolves update state to trigger re-render and show new contact in the DOM
+  createContact(contact) {
+  ContactsAPI.create(contact).then(contact => {
+    this.setState(state => ({
+      contacts: state.contacts.concat([ contact ])
+    }))
+  })
+}
+
   render() {
     return (
       <div className="App">
+        {/* exact flag is required here to avoid rendering both '/' and '/create' components */}
         <Route exact path="/" render={() => (
           <ContactList contacts={this.state.contacts} onDeleteContact={this.removeContact}/>
         )}
         />
-        <Route path="/create" component={CreateContact}/>
+        <Route path="/create" render={({ history }) => (
+          // render CreateContact component with create function as props
+          <CreateContact
+            onCreateContact={(contact) => {
+              this.createContact(contact);
+          // history.push('/') redirects to index route after contact creation
+              history.push('/')
+            }}
+          />
+        )}/>
       </div>
     );
   }
