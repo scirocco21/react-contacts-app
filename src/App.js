@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import ContactList from './ContactList'
-import * as ContactsAPI from './utils/ContactsAPI'
+import ContactList from './ContactList';
+import * as ContactsAPI from './utils/ContactsAPI';
 
 class App extends Component {
   // alternatively, state could be defined inside a constructor function:
@@ -9,26 +9,14 @@ class App extends Component {
   //     this.state = {contacts: [...]}
   // }
   state = {
-    contacts: [
-      {
-        "id": "ryan",
-        "name": "Ryan Florence",
-        "email": "ryan@reacttraining.com",
-        "avatarURL": "http://localhost:5001/ryan.jpg"
-      },
-      {
-        "id": "michael",
-        "name": "Michael Jackson",
-        "email": "michael@reacttraining.com",
-        "avatarURL": "http://localhost:5001/michael.jpg"
-      },
-      {
-        "id": "tyler",
-        "name": "Tyler McGinnis",
-        "email": "tyler@reacttraining.com",
-        "avatarURL": "http://localhost:5001/tyler.jpg"
-      }
-    ]
+    contacts: []
+  }
+
+  // make API request once components mounts. Calling setState will cause re=render of DOM and cause contacts array to populate and display
+  componentDidMount() {
+    ContactsAPI.getAll().then((contacts) => {
+      this.setState({ contacts })
+    })
   }
 
   // removeContact returns a new array without the selected item (the element to be removed). The function will be invoked by pressing a button in the child component ContactList and therefore needs to be passed down via props
