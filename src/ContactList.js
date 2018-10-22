@@ -21,8 +21,10 @@ class ContactList extends Component {
     return (
       <div className="list-contacts">
         <div className="list-contacts-top">
+          {/* search form is a controlled component because the value displayed is a direct reflection of the contact list's internal state, where query is stored */}
           <input
-            className="search-contacts" type="text" placeholder="Search Contacts" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)}
+            className="search-contacts" type="text"
+            placeholder="Search Contacts" value={this.state.query} onChange={(event) => this.updateQuery(event.target.value)}
           />
         </div>
         <ol className="contact-list">
