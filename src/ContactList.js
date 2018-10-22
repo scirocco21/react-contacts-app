@@ -18,6 +18,10 @@ class ContactList extends Component {
     this.setState( {query: query.trim() })
   }
 
+  clearQuery = () => {
+   this.setState({ query: '' })
+ }
+
   render() {
     const people = this.props.contacts;
     const { onDeleteContact } = this.props
@@ -42,6 +46,13 @@ class ContactList extends Component {
             placeholder="Search Contacts" value={query} onChange={(event) => this.updateQuery(event.target.value)}
           />
         </div>
+        {/* if any filters are in place, show how many items out of the total are showing and give option to reset filter */}
+        {showingContacts.length !== contacts.length && (
+         <div className='showing-contacts'>
+           <span>Now showing {showingContacts.length} of {contacts.length} total</span>
+           <button onClick={this.clearQuery}>Show all</button>
+         </div>
+       )}
         <ol className="contact-list">
         {/* map each person in the array to a specific li */}
         {showingPeople.map(person => (
